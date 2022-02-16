@@ -21,8 +21,9 @@ const dateOptions = {
 const $ = document.querySelector.bind(document);
 const weekdayOptions = { ...dateOptions, weekday: "long" };
 const init = () => {
-    const button = $(".generate")
-    const output = $(".output")
+    const button = $("#generate")
+    const cheat = $("#cheat")
+    const output = $("#output")
     const langSelect = $("#lang-select")
     const langInput = $("#lang")
     const withAudio = $("#audio")
@@ -64,7 +65,11 @@ const init = () => {
         }
         generate = !generate;
         button.innerHTML = generate ? "Generate" : "Reveal";
+        cheat.style.display = !generate && !withText.checked ? "inline" : "none";
     }
+    cheat.addEventListener("click", evt => {
+        output.innerHTML = date.toLocaleDateString(lang, dateOptions);
+    })
 
     button.addEventListener("click", onClick);
     window.addEventListener("keyup", evt => {

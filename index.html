@@ -16,11 +16,15 @@
             margin: 1rem 0;
         }
 
-        button {
+        #generate {
             font-size: 2rem;
         }
 
-        .output {
+        #cheat {
+            margin-top: 1rem;
+        }
+
+        #output {
             font-size: 3rem;
         }
 
@@ -69,9 +73,11 @@
         <input type="checkbox" name="c2100" id="c2100" checked>
     </div>
     <div>
-        <button class="generate">Generate</button>
+        <button id="generate">Generate</button>
+        <br />
+        <button id="cheat" style="display: none">Show Text</button>
     </div>
-    <div class="output"></div>
+    <div id="output"></div>
 </body>
 
 </html>
