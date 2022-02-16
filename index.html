@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Date</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: sans-serif;
+        }
+
+        div {
+            margin: 1rem 0;
+        }
+
+        button {
+            font-size: 2rem;
+        }
+
+        .output {
+            font-size: 3rem;
+        }
+
+        label:not(:first-child) {
+            margin-left: 1rem;
+        }
+    </style>
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <h1>Doomsday Rule Training App</h1>
+    <div>
+        Learn how to determine the day of week for any given date using the <a
+            href="https://en.wikipedia.org/wiki/Doomsday_rule">Doomsday rule</a>.
+    </div>
+    <div>Click the button below or press <em>Enter</em> or <em>Space</em></div>
+    <div>
+        <select name="lang-select" id="lang-select"></select>
+
+        <label for="lang">Language:</label>
+        <input type="text" name="lang" id="lang">
+        <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry">
+            Supported languages
+        </a>
+    </div>
+    <div>
+        <label for="audio-only">Audio:</label>
+        <input type="checkbox" name="audio" id="audio" checked>
+        <label for="checkbox">Text:</label>
+        <input type="checkbox" name="text" id="text">
+        <label for="rate">Audio Speed:</label>
+        <input type="number" name="rate" id="rate" value="1" min="0.25" max="3" step="0.25">
+    </div>
+    <div id="centuries">
+        <label for="c1800">1800:</label>
+        <input type="checkbox" name="c1800" id="c1800" checked>
+        <label for="c1900">1900:</label>
+        <input type="checkbox" name="c1900" id="c1900" checked>
+        <label for="c2000">2000:</label>
+        <input type="checkbox" name="c2000" id="c2000" checked>
+        <label for="c2100">2100:</label>
+        <input type="checkbox" name="c2100" id="c2100" checked>
+    </div>
+    <div>
+        <button class="generate">Generate</button>
+    </div>
+    <div class="output"></div>
+</body>
+
+</html>
