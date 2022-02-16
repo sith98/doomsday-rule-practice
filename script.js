@@ -55,6 +55,12 @@ const init = () => {
             }
         } else {
             output.innerHTML = date.toLocaleDateString(lang, weekdayOptions);
+            if (withAudio.checked) {
+                const textToSpeech = new SpeechSynthesisUtterance(date.toLocaleDateString(lang, { weekday: "long" }));
+                textToSpeech.lang = lang
+                textToSpeech.rate = rate.value;
+                window.speechSynthesis.speak(textToSpeech);
+            }
         }
         generate = !generate;
         button.innerHTML = generate ? "Generate" : "Reveal";
