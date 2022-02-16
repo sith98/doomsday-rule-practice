@@ -68,7 +68,7 @@ const init = () => {
         cheat.style.display = !generate && !withText.checked ? "inline" : "none";
     }
     cheat.addEventListener("click", evt => {
-        output.innerHTML = date.toLocaleDateString(lang, dateOptions);
+        output.innerHTML = date.toLocaleDateString(lang.value, dateOptions);
     })
 
     button.addEventListener("click", onClick);
