@@ -18,8 +18,9 @@ const dateOptions = {
     month: "long",
     day: "numeric"
 }
+const weekdayOnlyOptions = { weekday: "long" };
+const revealOptions = { ...dateOptions, ...weekdayOnlyOptions };
 const $ = document.querySelector.bind(document);
-const weekdayOptions = { ...dateOptions, weekday: "long" };
 const init = () => {
     const button = $("#generate")
     const cheat = $("#cheat")
@@ -41,26 +42,33 @@ const init = () => {
         langInput.value = langSelect.value;
     })
 
-    const onClick = () => {
+    const show = (options) => {
+        output.innerHTML = date.toLocaleDateString(langInput.value, options);
+    }
+    const speak = (options) => {
         const lang = langInput.value;
+        const text = date.toLocaleDateString(lang, options);
+        const textToSpeech = new SpeechSynthesisUtterance(text);
+        textToSpeech.lang = lang;
+        textToSpeech.rate = rate.value;
+        window.speechSynthesis.speak(textToSpeech);
+    }
+
+    const onClick = () => {
         if (generate) {
             date = randomDate();
-            const text = date.toLocaleDateString(lang, dateOptions)
-            output.innerHTML = withText.checked ? text : "";
-
+            if (withText.checked) {
+                show(dateOptions)
+            } else {
+                output.innerHTML = "";
+            }
             if (withAudio.checked) {
-                const textToSpeech = new SpeechSynthesisUtterance(text);
-                textToSpeech.lang = lang
-                textToSpeech.rate = rate.value;
-                window.speechSynthesis.speak(textToSpeech);
+                speak(dateOptions);
             }
         } else {
-            output.innerHTML = date.toLocaleDateString(lang, weekdayOptions);
+            show(revealOptions)
             if (withAudio.checked) {
-                const textToSpeech = new SpeechSynthesisUtterance(date.toLocaleDateString(lang, { weekday: "long" }));
-                textToSpeech.lang = lang
-                textToSpeech.rate = rate.value;
-                window.speechSynthesis.speak(textToSpeech);
+                speak(weekdayOnlyOptions);
             }
         }
         generate = !generate;
@@ -68,10 +76,15 @@ const init = () => {
         cheat.style.display = !generate && !withText.checked ? "inline" : "none";
     }
     cheat.addEventListener("click", evt => {
-        output.innerHTML = date.toLocaleDateString(lang.value, dateOptions);
+        speak(dateOptions);
     })
 
     button.addEventListener("click", onClick);
+    window.addEventListener("keydown", evt => {
+        if ([" ", "Enter"].includes(evt.key)) {
+            evt.preventDefault();
+        }
+    });
     window.addEventListener("keyup", evt => {
         if ([" ", "Enter"].includes(evt.key)) {
             onClick();
